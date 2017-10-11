@@ -40,7 +40,6 @@
 				 }"></div>
 			</div>
 			<div class="game-row"
-				 :ref="'root'+rowIndex"
 				 v-for="(row, rowIndex) in gridList">
 				<div class="grid"
 					 :style="{width:gridSize, height:gridSize}"
@@ -215,9 +214,9 @@
 					&& (path1=this.getOneLinePath(grid1, passGrid)).length > 0
 					&& (path2=this.getOneLinePath(passGrid, grid2)).length > 0) {
 		            var path = []
-					path = addAll(path, path1)
+					path = path.concat(path1)
 					path.splice(path.length-1, 1)
-					path = addAll(path, path2)
+					path = path.concat(path2)
 					return path
 				}
 				passGrid = this.gridList[grid2.row][grid1.column]
@@ -225,9 +224,9 @@
 					&& (path1=this.getOneLinePath(grid1, passGrid)).length > 0
 					&& (path2=this.getOneLinePath(passGrid, grid2)).length > 0) {
 					var path = []
-					path = addAll(path, path1)
+					path = path.concat(path1)
 					path.splice(path.length-1, 1)
-					path = addAll(path, path2)
+					path = path.concat(path2)
 					return path
 				}
 				return []
@@ -252,9 +251,9 @@
 							}
 							var twoLinePath = this.getTwoLinePath(middleGrid, endGrid)
 							if (twoLinePath.length>0 && (path.length==0 || path.length>oneLinePath.length+twoLinePath.length-1)) {
-								path = addAll([], oneLinePath)
+								path = oneLinePath
 								path.splice(path.length-1, 1)
-								path = addAll(path, twoLinePath)
+								path = path.concat(twoLinePath)
 							}
 						}
 					}
@@ -273,9 +272,9 @@
 								if (oneLinePath.length>0) {
 									var twoLinePath = this.getTwoLinePath(leftGird, grid2)
 									if (twoLinePath.length>0 && (path.length==0 || path.length>oneLinePath.length+twoLinePath.length-1)) {
-										path = addAll([], oneLinePath)
+										path = oneLinePath
 										path.splice(path.length-1, 1)
-										path = addAll(path, twoLinePath)
+										path = path.concat(twoLinePath)
 									}
 								}
 							}
@@ -290,9 +289,9 @@
 								if (oneLinePath.length>0) {
 									var twoLinePath = this.getTwoLinePath(rightGrid, grid2)
 									if (twoLinePath.length>0 && (path.length==0 || path.length>oneLinePath.length+twoLinePath.length-1)) {
-										path = addAll([], oneLinePath)
+										path = oneLinePath
 										path.splice(path.length-1, 1)
-										path = addAll(path, twoLinePath)
+										path = path.concat(twoLinePath)
 									}
 								}
 							}
@@ -319,9 +318,9 @@
 							}
 							var twoLinePath = this.getTwoLinePath(middleGrid, endGrid)
 							if (twoLinePath.length>0 && (path.length==0 || path.length>oneLinePath.length+twoLinePath.length-1)) {
-								path = addAll([], oneLinePath)
+								path = oneLinePath
 								path.splice(path.length-1, 1)
-								path = addAll(path, twoLinePath)
+								path = path.concat(twoLinePath)
 							}
 						}
 					}
@@ -340,9 +339,9 @@
 								if (oneLinePath.length>0) {
 									var twoLinePath = this.getTwoLinePath(upGird, grid2)
 									if (twoLinePath.length>0 && (path.length==0 || path.length>oneLinePath.length+twoLinePath.length-1)) {
-										path = addAll([], oneLinePath)
+										path = oneLinePath
 										path.splice(path.length-1, 1)
-										path = addAll(path, twoLinePath)
+										path = path.concat(twoLinePath)
 									}
 								}
 							}
@@ -357,9 +356,9 @@
 								if (oneLinePath.length>0) {
 									var twoLinePath = this.getTwoLinePath(downGrid, grid2)
 									if (twoLinePath.length>0 && (path.length==0 || path.length>oneLinePath.length+twoLinePath.length-1)) {
-										path = addAll([], oneLinePath)
+										path = oneLinePath
 										path.splice(path.length-1, 1)
-										path = addAll(path, twoLinePath)
+										path = path.concat(twoLinePath)
 									}
 								}
 							}
@@ -569,33 +568,6 @@
 			this.resetGame()
         }
     }
-	function contains(arr, obj) {
-		for (var i in arr) {
-			if (arr[i] === obj) {
-				return true
-			}
-		}
-		return false
-	}
-	function objIndex(arr, obj) {
-		for (var i in arr) {
-			if (arr[i] === obj) {
-				return i
-			}
-		}
-		return -1
-	}
-	function exchangeIndex(arr, index1, index2) {
-		var v1 = arr[index1]
-		arr.splice(index1, 1, arr[index2])
-		arr.splice(index2, 1, v1)
-	}
-	function addAll(arr, addArr) {
-		for (var i in addArr) {
-		    arr.push(addArr[i])
-		}
-		return arr
-	}
     function toast(text, duration) {
         modal.toast({
             message: text,
